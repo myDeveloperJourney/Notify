@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const notesRouter = require('./controllers/notes');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 
 // initialize the express app
 const app = express();
@@ -18,6 +19,9 @@ mongoose.connection.on('connected', () => {
 
 
 // mount middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(morgan('dev'));
+// GET /notes
 
 // mount routes
 app.get('/', (req, res) => {
@@ -25,6 +29,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/', notesRouter);
+
 
 // tell the app to listen for requests from the client
 
